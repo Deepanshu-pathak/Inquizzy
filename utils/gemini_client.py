@@ -1,8 +1,10 @@
 from google import genai
 import ast
+import os
 import streamlit as st
 
-client = genai.Client(api_key="AIzaSyCXGqmZHnhbubnrBcKHxxoNkPCB_jDC-p0")
+GEMINI_API_KEY= os.getenv("APIKEY")
+client =genai.Client(api_key=GEMINI_API_KEY)
 
 def generate_questions(domain, difficulty, q_type="mcq", limit=5):
     if q_type.lower() == "true/false":
