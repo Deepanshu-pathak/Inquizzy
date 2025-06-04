@@ -1,6 +1,7 @@
 import streamlit as st
 from utils.fetch_questions import fetch_questions
 import time
+from PIL import Image
 
 # Initialize session state
 if 'page' not in st.session_state:
@@ -20,7 +21,9 @@ if 'submitted' not in st.session_state:
 if 'current_q' not in st.session_state:
     st.session_state.current_q = 0
 
-st.set_page_config(page_title='Inquizzy')
+logo = Image.open("assets/Inquizzy LOGO.png")
+st.set_page_config(page_title='Inquizzy',page_icon=logo)
+
 
 # HEADER
 st.markdown("""
@@ -31,6 +34,7 @@ st.markdown("""
     </style>
     <h1 class='main-title'>Inquizzy</h1>
 """, unsafe_allow_html=True)
+
 
 # SETTINGS PAGE
 if st.session_state.page == 'settings':
@@ -73,16 +77,16 @@ elif st.session_state.page == 'quiz':
     elapsed = int(time.time() - st.session_state.start_time)
     remaining = max(0, st.session_state.total_time - elapsed)
     mins, secs = divmod(remaining, 60)
-    st.sidebar.title("⏳ Timer")
-    st.sidebar.header(f"{mins:02d}:{secs:02d}")
+    st.sidebar.title(f"⏳ Time Left: {mins:02d}:{secs:02d}")    
 
     if remaining == 0 and not st.session_state.submitted:
         st.session_state.page = 'result'
         st.rerun()
 
+
     # Question palette
     st.sidebar.markdown("### 🔢 Navigate Questions")
-    for i in range(total_q):
+    for i in range(total_q):          
         btn_label = f"{i+1}"
         style = "✅" if i in st.session_state.answers else "🔲"
         if st.sidebar.button(f"{style} Q{i+1}"):
@@ -92,7 +96,6 @@ elif st.session_state.page == 'quiz':
     # Display current question
     st.markdown(f"### Question {q_idx + 1} of {total_q}")
     with st.container():
-        st.markdown("<div class='question-card'>", unsafe_allow_html=True)
         st.write(current_q['question'])
 
         selected_index = 0
