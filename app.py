@@ -128,6 +128,10 @@ elif st.session_state.page == 'quiz':
 
 # RESULT PAGE
 elif st.session_state.page == 'result':
+    if st.button("Return to Home"):
+        st.session_state.page = 'settings'
+        st.rerun()
+
     st.title("🎉 Quiz Completed!")
     score = 0
     for idx, q in enumerate(st.session_state.questions):
