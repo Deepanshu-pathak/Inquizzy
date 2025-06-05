@@ -30,7 +30,7 @@ def generate_questions(domain, difficulty, q_type="mcq", limit=5):
         with st.spinner("Generating quiz questions... please wait"):
             response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
             questions = ast.literal_eval(response.text.strip().strip('```python').strip('```').strip())
-        return questions
+            return questions
         
 
     except Exception as e:
