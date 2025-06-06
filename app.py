@@ -31,7 +31,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
 # SETTINGS PAGE
 if st.session_state.page == "settings":
     with st.container():
@@ -67,6 +66,9 @@ if st.session_state.page == "settings":
                 "num_questions": num_questions,
             }
             questions = fetch_questions(domain, difficulty, q_type, num_questions)
+            if not questions:
+                st.error("⚠️ Gemini API did not return valid or enough questions. Please try again...")
+                st.stop()
 
             st.session_state.questions = questions
             st.session_state.answers = {}
@@ -84,16 +86,17 @@ elif st.session_state.page == "quiz":
     st.session_state.current_q = q_idx
 
     # Question palette
+    st.sidebar.image("assets/Inquizzy LOGO.png")
     st.sidebar.markdown("### 🔢 Navigate Questions")
     for i in range(total_q):
         btn_label = f"{i+1}"
-        style = "✅" if i in st.session_state.answers else "🔲"
+        style = "✅" if i in st.session_state.answers and st.session_state.answers[i] not in [None, ""] else "🔲"
         if st.sidebar.button(f"{style} Q{i+1}"):
             st.session_state.current_q = i
             st.rerun()
 
     # Display current question
-    st.markdown(f"#### Question {q_idx + 1} of {total_q}")
+    st.markdown(f"#### Q. {q_idx + 1} of {total_q}")
     with st.container():
         st.write(current_q["question"])
 
@@ -139,11 +142,7 @@ elif st.session_state.page == "quiz":
 
 # RESULT PAGE
 elif st.session_state.page == "result":
-    if st.button("Return to Home"):
-        st.session_state.page = "settings"
-        st.rerun()
-
-    st.title("🎉 Quiz Completed!")
+    st.title("Quiz Completed!")
     score = 0
     for idx, q in enumerate(st.session_state.questions):
         correct = q["correct_answer"]
@@ -163,3 +162,7 @@ elif st.session_state.page == "result":
         st.markdown(f"- Your Answer: {given}")
         st.markdown(f"- Correct Answer: {correct} {status}")
         st.markdown("---")
+    
+    if st.button("Return to Home"):
+        st.session_state.page = "settings"
+        st.rerun()
