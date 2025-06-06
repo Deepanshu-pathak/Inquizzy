@@ -1,6 +1,8 @@
-# 🧠 Inquizzy - AI-Powered Quiz App
+# 🧠 Inquizzy - Quiz App
 
-Inquizzy is a fully interactive, AI-driven quiz application built with **Streamlit** and powered by **Google's Gemini API**. It dynamically generates quiz questions based on selected **domains**, **difficulty levels**, and **question types** (MCQs or True/False), offering users a platform to review their knowledge in particular domain.
+**No login. No signup. Just pure knowledge testing.** <br>
+Inquizzy is a AI-powered quiz platform crafted for curious minds and fast learners. Built to simplify knowledge checks, it offers an effortless and focused way to test yourself across technical domains.
+
 
 ---
 
@@ -20,7 +22,7 @@ Inquizzy is a fully interactive, AI-driven quiz application built with **Streaml
 - Navigate between questions using **Prev** and **Next** buttons.
 - Final score revealed after submission.
 
-### 📊 Result Page
+#### 📊 Result Page
 - Final score summary.
 - Correct vs Your answer comparison.
 - Return to Home button for retaking quiz.
