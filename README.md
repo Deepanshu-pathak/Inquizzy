@@ -5,6 +5,9 @@ Inquizzy is a AI-powered quiz platform crafted for curious minds and fast learne
 
 
 ---
+## 🌐 Live Demo
+Try out the app here:
+👉 https://inquizzy.streamlit.app
 
 ## 🚀 Features
 
