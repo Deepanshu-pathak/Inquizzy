@@ -3,7 +3,7 @@ import ast
 import os
 import streamlit as st
 
-GEMINI_API_KEY= os.getenv("APIKEY")
+GEMINI_API_KEY= os.getenv("GEMINI_API_KEY")
 client =genai.Client(api_key=GEMINI_API_KEY)
 
 def generate_questions(domain, difficulty, q_type="mcq", limit=5):
